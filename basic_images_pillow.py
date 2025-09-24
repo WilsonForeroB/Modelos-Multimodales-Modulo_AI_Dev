@@ -98,10 +98,10 @@ if __name__ == "__main__":
     img = Image.open(fp=url)
     #img = cargar_imagen(url)
 
-    img_girada = girar(img, 45)
-    img_girada.show()
+    #img_girada = girar(img, 45)
+    #img_girada.show()
 
-    img_grises = escala_grises(img)
+    img_grises = marco(img)
     img_grises.show()
 
 

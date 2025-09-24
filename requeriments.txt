@@ -1,9 +1,13 @@
 pillow
 opencv-python
-torch
-torchvision
 timm
 diffusers 
 transformers 
 accelerate 
 safetensors
+librosa
+sounddevice
+torch
+torchvision
+torchaudio
+transformers

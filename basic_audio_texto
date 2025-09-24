@@ -1,0 +1,32 @@
+import numpy as np
+from scipy.io import wavfile
+from transformers import pipeline
+
+# 1. Definir pipeline de Speech-to-Text
+asr = pipeline(
+    task="automatic-speech-recognition",
+    model="openai/whisper-base"
+)
+
+# 2. Cargar archivo de audio WAV
+sr, y = wavfile.read("Test/test.wav")
+
+# Si el audio tiene más de 1 canal (estéreo), convertir a mono
+if len(y.shape) > 1:
+    y = y.mean(axis=1)
+
+# Convertir a float32 normalizado (-1.0 a 1.0)
+if y.dtype != np.float32:
+    y = y.astype(np.float32)
+    y = y / np.max(np.abs(y))
+
+# 3. Transcribir (forzando idioma español y transcripción)
+print("Transcribiendo...")
+resultado = asr(
+    {"array": y, "sampling_rate": sr},
+    generate_kwargs={"language": "es", "task": "transcribe"}
+)
+
+# 4. Mostrar resultado
+print("\nTexto reconocido:")
+print(resultado["text"])
